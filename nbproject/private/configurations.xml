@@ -2,9 +2,12 @@
 <configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
+      <df name="build">
+      </df>
       <df name="src">
         <in>main.cpp</in>
       </df>
+      <in>TODO</in>
     </df>
   </logicalFolder>
   <projectmakefile>makefile</projectmakefile>
@@ -43,11 +46,13 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
+          <runcommandpicklistitem>./</runcommandpicklistitem>
+          <runcommandpicklistitem>./main</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}"</runcommand>
-        <rundir>.</rundir>
-        <buildfirst>false</buildfirst>
+        <rundir>/home/douglas/Projetos/SO_Trab1/build</rundir>
+        <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
         <environment>

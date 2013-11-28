@@ -1,0 +1,18 @@
+TODO-List
+
+- Tabela Hash
+    - Definir tipo "entrada" e criar estrutura da tabela.
+        - Classe HashTable;
+        - Construtor e Destrutor;
+
+    - Iniciar Implementação dos Métodos
+        - get(x), retorna o elemento de chave x se este existir;
+        - add(x), adiciona um elemento de chave x se este não existir;
+        - set(x), adiciona um elemento de chave x se não existir, ou muda seu valor caso já exista;
+        - delete(x), remove o elemento de chave x se este existir;
+        - print(x), imprime o conteúdo do elemento de chave x ou null se este não existir;
+        - printall(), imprime todos os elementos da tabela;
+
+- Buscar biblioteca de sincronização
+
+- Criar biblioteca de Teste com pthreads
