@@ -1,4 +1,8 @@
-SO_Trab1
-========
+#################################  DESENVOLVIMENTO  ##############################################
 
-Trabalho 1 da disciplina de Sistemas Operacionais da Universidade Federal de Pelotas
+Universidade Federal de Pelotas - Sistemas Operacionais - Trabalho 1 - Tabela Hash Concorrente
+	
+Douglas Detoni
+Ivan J. Rambo
+
+
