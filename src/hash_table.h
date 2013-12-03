@@ -22,8 +22,10 @@ class hash_table {
         
     public:
         
-        hash_table(int tb_size);
+        hash_table(int tb_size, int block_size);
         int Hash(string key);
+        int Add(string key, int number);
+        int Get(string key);
     
 };
 
