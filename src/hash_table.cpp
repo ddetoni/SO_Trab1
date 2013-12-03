@@ -8,7 +8,9 @@ using namespace std;
 
 hash_table::hash_table(int tb_size)
 {
+    table = new entry[tb_size];
     table_size = tb_size;
+    //cout << "Table size created. "<< endl;
 }
 
 int hash_table::Hash(string key)

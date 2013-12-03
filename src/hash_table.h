@@ -18,6 +18,8 @@ class hash_table {
             entry* next;
         };
         
+        entry* table;
+        
     public:
         
         hash_table(int tb_size);

@@ -7,6 +7,9 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
+
+#include "hash_table.h"
 
 using namespace std;
 
@@ -15,7 +18,12 @@ using namespace std;
  */
 int main(int argc, char** argv) {
     
-    cout<<"Bora começar o trabalho.\n";
+    int index;
+    hash_table hashObj(85);
+    
+    index = hashObj.Hash("Maria");
+    
+    cout << "index = " << index << endl;
     
     return 0;
 }

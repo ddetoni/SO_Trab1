@@ -2,13 +2,16 @@
 <configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
-      <df name="build">
+      <df name="GNU-i386-Linux">
       </df>
       <df name="src">
+        <in>hash_table.cpp</in>
+        <in>hash_table.h</in>
         <in>main.cpp</in>
       </df>
       <in>TODO</in>
     </df>
+    <itemPath>Makefile</itemPath>
   </logicalFolder>
   <projectmakefile>makefile</projectmakefile>
   <confs>
@@ -51,7 +54,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}"</runcommand>
-        <rundir>./build</rundir>
+        <rundir>/home/douglas/Projetos/SO_Trab1/GNU-i386-Linux</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>
