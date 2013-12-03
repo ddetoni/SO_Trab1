@@ -6,7 +6,7 @@
 
 using namespace std;
 
-hash_table::hash_table(int tb_size)
+hash_table::hash_table(int tb_size, int block_size)
 {
     table = new entry[tb_size];
     table_size = tb_size;
@@ -26,4 +26,18 @@ int hash_table::Hash(string key)
     index = hash % table_size;
     
     return index;
+}
+
+int hash_table::Add(string key, int number)
+{
+    int index = this->Hash(key);
+    this->table[index] = {key, number};
+    
+    return 1;
+}
+
+int hash_table::Get(string key)
+{
+    int index = this->Hash(key);
+    return this->table[index].number;
 }
