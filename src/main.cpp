@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     int index;
     hash_table hashObj(64, 8);
     
-    index = hashObj.Add("Ivan", 5623);
+    index = hashObj.Add("Ivan", 12);
     
     int number = hashObj.Get("Ivan");
     

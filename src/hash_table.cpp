@@ -31,13 +31,24 @@ int hash_table::Hash(string key)
 int hash_table::Add(string key, int number)
 {
     int index = this->Hash(key);
-    this->table[index] = {key, number};
     
-    return 1;
+    
+    if (this->table[index].key == "") {
+        this->table[index] = {key, number};
+        return 1;
+    }
+    
+    return 0;
 }
 
 int hash_table::Get(string key)
 {
     int index = this->Hash(key);
-    return this->table[index].number;
+    int number = this->table[index].number;
+    
+    if (number != 0) {
+        return number;
+    }
+    
+    return -1;
 }
