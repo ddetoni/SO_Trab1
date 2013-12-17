@@ -2,18 +2,19 @@
 #include <iostream>
 #include <string>
 
-#include "hash_table.h"
+#include "HashTable.h"
+#include "Entry.h"
 
 using namespace std;
 
-hash_table::hash_table(int tb_size, int block_size)
+HashTable::HashTable(int tb_size, int block_size)
 {
-    table = new entry[tb_size];
-    table_size = tb_size;
+    this->table = new Entry[tb_size];
+    this->table_size = tb_size;
     //cout << "Table size created. "<< endl;
 }
 
-int hash_table::Hash(string key)
+int HashTable::Hash(string key)
 {
     int hash = 0;
     int index;
@@ -28,23 +29,20 @@ int hash_table::Hash(string key)
     return index;
 }
 
-int hash_table::Add(string key, int number)
+int HashTable::Add(string key, int number)
 {
     int index = this->Hash(key);
     
+    this->table[index].SetKey(key);
+    this->table[index].SetNumber(number);
     
-    if (this->table[index].key == "") {
-        this->table[index] = {key, number};
-        return 1;
-    }
-    
-    return 0;
+    return 1;
 }
 
-int hash_table::Get(string key)
+int HashTable::Get(string key)
 {
     int index = this->Hash(key);
-    int number = this->table[index].number;
+    int number = this->table[index].GetNumber();
     
     if (number != 0) {
         return number;

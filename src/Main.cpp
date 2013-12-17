@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 
-#include "hash_table.h"
+#include "HashTable.h"
 
 using namespace std;
 
@@ -19,13 +19,13 @@ using namespace std;
 int main(int argc, char** argv) {
     
     int index;
-    hash_table hashObj(64, 8);
+    HashTable hashObj(64, 8);
     
     index = hashObj.Add("Ivan", 12);
     
     int number = hashObj.Get("Ivan");
     
-    cout << "number = " << number << endl;
+    cout << "number = "<<number<< endl;
     
     return 0;
 }

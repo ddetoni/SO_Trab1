@@ -3,10 +3,13 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
       <df name="src">
-        <in>hash_table.cpp</in>
-        <in>hash_table.h</in>
-        <in>main.cpp</in>
+        <in>Entry.cpp</in>
+        <in>Entry.h</in>
+        <in>HashTable.cpp</in>
+        <in>HashTable.h</in>
+        <in>Main.cpp</in>
       </df>
+      <in>Makefile</in>
       <in>TODO</in>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -15,7 +18,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>Makefile</itemPath>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
@@ -36,7 +38,7 @@
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
-          <executablePath>GNU-i386-Linux/main</executablePath>
+          <executablePath>bin/main</executablePath>
           <ccTool>
             <incDir>
               <pElem>.</pElem>
@@ -48,11 +50,15 @@
       </item>
       <item path="TODO" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/hash_table.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Entry.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/hash_table.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Entry.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/main.cpp" ex="false" tool="1" flavor2="4">
+      <item path="src/HashTable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HashTable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Main.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
         </ccTool>
       </item>

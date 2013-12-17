@@ -1,7 +1,7 @@
 ## -*- Makefile -*-
 ##
 ## Usuário: douglas
-## Hora: 03/12/2013 10:57:54
+## Hora: 17/12/2013 15:53:20
 ## Makefile created by Oracle Solaris Studio.
 ##
 ## Este arquivo é gerado automaticamente.
@@ -18,15 +18,16 @@ CCADMIN =
 
 
 # Definir os diretórios de destino.
-TARGETDIR_main=GNU-i386-Linux
+TARGETDIR_main=bin
 
 
 all: $(TARGETDIR_main)/main
 
 ## Destino: main
 OBJS_main =  \
-	$(TARGETDIR_main)/main.o \
-	$(TARGETDIR_main)/hash_table.o
+	$(TARGETDIR_main)/Entry.o \
+	$(TARGETDIR_main)/HashTable.o \
+	$(TARGETDIR_main)/Main.o
 USERLIBS_main = $(SYSLIBS_main) 
 DEPLIBS_main =  
 LDLIBS_main = $(USERLIBS_main)
@@ -38,11 +39,14 @@ $(TARGETDIR_main)/main: $(TARGETDIR_main) $(OBJS_main) $(DEPLIBS_main)
 
 
 # Compilar arquivos de código-fonte nos arquivos .o
-$(TARGETDIR_main)/main.o: $(TARGETDIR_main) src/main.cpp
-	$(COMPILE.cc) $(CCFLAGS_main) $(CPPFLAGS_main) -o $@ src/main.cpp
+$(TARGETDIR_main)/Entry.o: $(TARGETDIR_main) src/Entry.cpp
+	$(COMPILE.cc) $(CCFLAGS_main) $(CPPFLAGS_main) -o $@ src/Entry.cpp
 
-$(TARGETDIR_main)/hash_table.o: $(TARGETDIR_main) src/hash_table.cpp
-	$(COMPILE.cc) $(CCFLAGS_main) $(CPPFLAGS_main) -o $@ src/hash_table.cpp
+$(TARGETDIR_main)/HashTable.o: $(TARGETDIR_main) src/HashTable.cpp
+	$(COMPILE.cc) $(CCFLAGS_main) $(CPPFLAGS_main) -o $@ src/HashTable.cpp
+
+$(TARGETDIR_main)/Main.o: $(TARGETDIR_main) src/Main.cpp
+	$(COMPILE.cc) $(CCFLAGS_main) $(CPPFLAGS_main) -o $@ src/Main.cpp
 
 
 
@@ -50,8 +54,9 @@ $(TARGETDIR_main)/hash_table.o: $(TARGETDIR_main) src/hash_table.cpp
 clean:
 	rm -f \
 		$(TARGETDIR_main)/main \
-		$(TARGETDIR_main)/main.o \
-		$(TARGETDIR_main)/hash_table.o
+		$(TARGETDIR_main)/Entry.o \
+		$(TARGETDIR_main)/HashTable.o \
+		$(TARGETDIR_main)/Main.o
 	$(CCADMIN)
 	rm -f -r $(TARGETDIR_main)
 
