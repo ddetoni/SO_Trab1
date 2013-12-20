@@ -14,7 +14,7 @@ HashTable::HashTable(int tb_size, int block_size)
     //cout << "Table size created. "<< endl;
 }
 
-int HashTable::Hash(string key)
+int HashTable::HashFunction(string key)
 {
     int hash = 0;
     int index;
@@ -31,7 +31,7 @@ int HashTable::Hash(string key)
 
 int HashTable::Add(string key, int number)
 {
-    int index = this->Hash(key);
+    int index = this->HashFunction(key);
     
     this->table[index].SetKey(key);
     this->table[index].SetNumber(number);
@@ -41,7 +41,7 @@ int HashTable::Add(string key, int number)
 
 int HashTable::Get(string key)
 {
-    int index = this->Hash(key);
+    int index = this->HashFunction(key);
     int number = this->table[index].GetNumber();
     
     if (number != 0) {

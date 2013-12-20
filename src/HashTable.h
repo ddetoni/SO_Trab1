@@ -17,7 +17,7 @@ class HashTable {
     public:
         
         HashTable(int tb_size, int block_size);
-        int Hash(string key);
+        int HashFunction(string key);
         int Add(string key, int number);
         int Get(string key);
     
