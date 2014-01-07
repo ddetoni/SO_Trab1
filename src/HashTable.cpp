@@ -32,7 +32,6 @@ int HashTable::HashFunction(string key)
 int HashTable::Add(string key, int number)
 {
     int index = this->HashFunction(key);
-    cout << index << endl;
     int last_index = index;
     
     while(!this->table[index].IsEmpty())
@@ -132,4 +131,14 @@ int HashTable::Print(string key)
     int number = this->Get(key);
     
     cout << number << endl;
+}
+
+int HashTable::PrintAll()
+{   
+    for(int i=0; i < this->table_size; i++)
+    {
+        if(!this->table[i].IsEmpty()){
+            cout << this->table[i].GetKey() << ": " << this->table[i].GetNumber() << endl;
+        } 
+    }
 }

@@ -31,7 +31,8 @@ int main(int argc, char** argv) {
     hashObj.Set("Joana", 123);
     
     hashObj.Delete("Joana");
-    hashObj.Print("Joana");
+    hashObj.PrintAll();
+    
     
     return 0;
 }

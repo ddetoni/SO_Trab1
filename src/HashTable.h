@@ -23,6 +23,7 @@ class HashTable {
         int Set(string key, int number);
         int Delete(string key);
         int Print(string key);
+        int PrintAll();
     
 };
 
