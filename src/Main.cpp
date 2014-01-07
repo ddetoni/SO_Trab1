@@ -28,10 +28,10 @@ int main(int argc, char** argv) {
     hashObj.Add("José", 215);
     hashObj.Add("Maria", 153);
     hashObj.Add("Pedro", 105);
-    hashObj.Add("João", 20);
-    hashObj.Add("Joana", 123);
+    hashObj.Set("Joana", 123);
     
     int number = hashObj.Get("Joana");
+    
     
     cout << "number = "<<number<< endl;
     

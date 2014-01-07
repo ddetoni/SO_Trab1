@@ -78,3 +78,28 @@ int HashTable::Get(string key)
     cout << index << endl;
     return number;
 }
+
+int HashTable::Set(string key, int number)
+{
+    int index = this->HashFunction(key);
+    int last_index = index;
+    
+    while(this->table[index].GetKey() != key && !this->table[index].IsEmpty())
+    {
+        index++;
+        
+        if(index == last_index) {
+            cout << "The key doesn't exist." << endl;
+            return -1;
+        }
+        
+        if(index > this->table_size-1) {
+            index = 0;
+        }
+    }
+    
+    this->table[index].SetKey(key);
+    this->table[index].SetNumber(number);
+    
+    return 1;
+}

@@ -20,6 +20,7 @@ class HashTable {
         int HashFunction(string key);
         int Add(string key, int number);
         int Get(string key);
+        int Set(string key, int number);
     
 };
 
