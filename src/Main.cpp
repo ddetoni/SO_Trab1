@@ -19,11 +19,19 @@ using namespace std;
 int main(int argc, char** argv) {
     
     int index;
-    HashTable hashObj(64, 8);
+    HashTable hashObj(8, 2);
     
-    index = hashObj.Add("Ivan", 12);
+    hashObj.Add("Ivan", 320);
+    hashObj.Add("Douglas", 512);
+    hashObj.Add("Carlos", 300);
+    hashObj.Add("Almeida", 2015);
+    hashObj.Add("José", 215);
+    hashObj.Add("Maria", 153);
+    hashObj.Add("Pedro", 105);
+    hashObj.Add("João", 20);
+    hashObj.Add("Joana", 123);
     
-    int number = hashObj.Get("Ivan");
+    int number = hashObj.Get("Joana");
     
     cout << "number = "<<number<< endl;
     

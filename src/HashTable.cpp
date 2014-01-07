@@ -32,6 +32,22 @@ int HashTable::HashFunction(string key)
 int HashTable::Add(string key, int number)
 {
     int index = this->HashFunction(key);
+    cout << index << endl;
+    int last_index = index;
+    
+    while(!this->table[index].IsEmpty())
+    {
+        index++;
+        
+        if(index == last_index) {
+            cout << "Hash table is full." << endl;
+            return -1;
+        }
+        
+        if(index > this->table_size-1) {
+            index = 0;
+        }
+    }
     
     this->table[index].SetKey(key);
     this->table[index].SetNumber(number);
@@ -42,11 +58,23 @@ int HashTable::Add(string key, int number)
 int HashTable::Get(string key)
 {
     int index = this->HashFunction(key);
-    int number = this->table[index].GetNumber();
+    int last_index = index;
     
-    if (number != 0) {
-        return number;
+    while(this->table[index].GetKey() != key)
+    {
+        index++;
+        
+        if(index == last_index) {
+            cout << "The key doesn't exist." << endl;
+            return -1;
+        }
+        
+        if(index > this->table_size-1) {
+            index = 0;
+        }
     }
     
-    return -1;
+    int number = this->table[index].GetNumber();
+    cout << index << endl;
+    return number;
 }

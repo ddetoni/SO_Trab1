@@ -24,6 +24,7 @@ public:
     int GetNumber();
     void SetNext(Entry next);
     Entry GetNext();
+    bool IsEmpty();
     
 private:
     string key;

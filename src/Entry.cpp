@@ -32,3 +32,10 @@ int Entry::GetNumber(){
     return this->number;
 }
 
+bool Entry::IsEmpty(){
+    if (this->key == "" && this->number == 0) {
+        return true;
+    }
+    return false;
+}
+
