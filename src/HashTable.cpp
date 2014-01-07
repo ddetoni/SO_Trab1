@@ -126,3 +126,10 @@ int HashTable::Delete(string key)
     this->table[index].SetNumber(0);
             
 }
+
+int HashTable::Print(string key)
+{
+    int number = this->Get(key);
+    
+    cout << number << endl;
+}
