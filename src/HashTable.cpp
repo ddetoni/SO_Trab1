@@ -40,7 +40,7 @@ int HashTable::Add(string key, int number)
         index++;
         
         if(index == last_index) {
-            cout << "Hash table is full." << endl;
+            cout << "Add_Error: Hash table is full." << endl;
             return -1;
         }
         
@@ -65,7 +65,7 @@ int HashTable::Get(string key)
         index++;
         
         if(index == last_index) {
-            cout << "The key doesn't exist." << endl;
+            cout << "Get_Error: The key doesn't exist." << endl;
             return -1;
         }
         
@@ -75,7 +75,6 @@ int HashTable::Get(string key)
     }
     
     int number = this->table[index].GetNumber();
-    cout << index << endl;
     return number;
 }
 
@@ -89,7 +88,7 @@ int HashTable::Set(string key, int number)
         index++;
         
         if(index == last_index) {
-            cout << "The key doesn't exist." << endl;
+            cout << "Set_Error: The key doesn't exist." << endl;
             return -1;
         }
         
@@ -102,4 +101,28 @@ int HashTable::Set(string key, int number)
     this->table[index].SetNumber(number);
     
     return 1;
+}
+
+int HashTable::Delete(string key)
+{
+    int index = this->HashFunction(key);
+    int last_index = index;
+    
+    while(this->table[index].GetKey() != key)
+    {
+        index++;
+        
+        if(index == last_index) {
+            cout << "Delete_Error: The key doesn't exist." << endl;
+            return -1;
+        }
+        
+        if(index > this->table_size-1) {
+            index = 0;
+        }
+    }
+    
+    this->table[index].SetKey("");
+    this->table[index].SetNumber(0);
+            
 }

@@ -30,7 +30,9 @@ int main(int argc, char** argv) {
     hashObj.Add("Pedro", 105);
     hashObj.Set("Joana", 123);
     
+    hashObj.Delete("Joana");
     int number = hashObj.Get("Joana");
+    
     
     
     cout << "number = "<<number<< endl;

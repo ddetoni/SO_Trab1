@@ -21,6 +21,7 @@ class HashTable {
         int Add(string key, int number);
         int Get(string key);
         int Set(string key, int number);
+        int Delete(string key);
     
 };
 
