@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 #include <pthread.h>
+#include <cstdint>
+#include <inttypes.h>
 
 #include "HashTable.h"
 
@@ -20,7 +22,7 @@ int j = 0;
 
 void *n_operations(void* p)
 {
-    int num = (int)p;
+    int num = (intptr_t)p;
     
     pthread_mutex_lock(&mymutex);
         cout << num << " op: " << j << endl;

@@ -11,7 +11,7 @@
 #### Definições do compilador e da ferramenta compartilhadas por todos os destinos de build #####
 CCC = g++
 CXX = g++
-BASICOPTS = -g -pthread
+BASICOPTS = -g -pthread -std=c++11
 CCFLAGS = $(BASICOPTS)
 CXXFLAGS = $(BASICOPTS)
 CCADMIN = 
