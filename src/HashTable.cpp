@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <math.h>
 
 #include "HashTable.h"
 #include "Entry.h"
@@ -11,6 +12,10 @@ HashTable::HashTable(int tb_size, int block_size)
 {
     this->table = new Entry[tb_size];
     this->table_size = tb_size;
+    this->block_size = block_size;
+    pthread_mutex_t  mutex_block[block_size];
+    this->mutexes = mutex_block;
+            
     //cout << "Table size created. "<< endl;
 }
 
@@ -29,22 +34,28 @@ int HashTable::HashFunction(string key)
     return index;
 }
 
+int HashTable::GetIndexBlock(int index)
+{
+    return index/this->block_size;
+}
+
 int HashTable::Add(string key, int number)
 {
     int index = this->HashFunction(key);
     int last_index = index;
+    int i_block = this->GetIndexBlock(index);
     
     while(!this->table[index].IsEmpty())
     {
         index++;
         
         if(index == last_index) {
-            cout << "Add_Error: Hash table is full." << endl;
+            cout << "Add_Error: Hash table or block is full." << endl;
             return -1;
         }
         
-        if(index > this->table_size-1) {
-            index = 0;
+        if(index > ((i_block+1)*this->block_size)-1) {
+            index = i_block*this->block_size;
         }
     }
     
@@ -58,6 +69,7 @@ int HashTable::Get(string key)
 {
     int index = this->HashFunction(key);
     int last_index = index;
+    int i_block = this->GetIndexBlock(index);
     
     while(this->table[index].GetKey() != key)
     {
@@ -68,8 +80,8 @@ int HashTable::Get(string key)
             return -1;
         }
         
-        if(index > this->table_size-1) {
-            index = 0;
+        if(index > ((i_block+1)*this->block_size)-1) {
+            index = i_block*this->block_size;
         }
     }
     
@@ -81,6 +93,7 @@ int HashTable::Set(string key, int number)
 {
     int index = this->HashFunction(key);
     int last_index = index;
+    int i_block = this->GetIndexBlock(index);
     
     while(this->table[index].GetKey() != key && !this->table[index].IsEmpty())
     {
@@ -91,8 +104,8 @@ int HashTable::Set(string key, int number)
             return -1;
         }
         
-        if(index > this->table_size-1) {
-            index = 0;
+        if(index > ((i_block+1)*this->block_size)-1) {
+            index = i_block*this->block_size;
         }
     }
     
@@ -106,6 +119,7 @@ int HashTable::Delete(string key)
 {
     int index = this->HashFunction(key);
     int last_index = index;
+    int i_block = this->GetIndexBlock(index);
     
     while(this->table[index].GetKey() != key)
     {
@@ -116,8 +130,8 @@ int HashTable::Delete(string key)
             return -1;
         }
         
-        if(index > this->table_size-1) {
-            index = 0;
+        if(index > ((i_block+1)*this->block_size)-1) {
+            index = i_block*this->block_size;
         }
     }
     

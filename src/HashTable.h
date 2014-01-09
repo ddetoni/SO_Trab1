@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <pthread.h>
 
 #include "Entry.h"
 
@@ -12,7 +13,9 @@ using namespace std;
 class HashTable {
     private:
         int table_size;
+        int block_size;
         Entry* table;
+        pthread_mutex_t  *mutexes;
         
     public:
         
@@ -24,6 +27,7 @@ class HashTable {
         int Delete(string key);
         int Print(string key);
         int PrintAll();
+        int GetIndexBlock(int index);
     
 };
 
