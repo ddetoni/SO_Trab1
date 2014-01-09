@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <assert.h>
 
 #include "HashTable.h"
 #include "Entry.h"
@@ -13,10 +14,16 @@ HashTable::HashTable(int tb_size, int block_size)
     this->table = new Entry[tb_size];
     this->table_size = tb_size;
     this->block_size = block_size;
-    pthread_mutex_t  mutex_block[block_size];
-    this->mutexes = mutex_block;
-            
-    //cout << "Table size created. "<< endl;
+    
+    this->mutexes[block_size];
+    
+    for(int i=0; i < block_size; i++)
+    {
+        int rc = pthread_mutex_init(&this->mutexes[i], NULL);
+        assert(rc == 0);
+    }
+    
+    this->full_blocks[block_size];
 }
 
 int HashTable::HashFunction(string key)
@@ -45,23 +52,37 @@ int HashTable::Add(string key, int number)
     int last_index = index;
     int i_block = this->GetIndexBlock(index);
     
-    while(!this->table[index].IsEmpty())
-    {
-        index++;
-        
-        if(index == last_index) {
-            cout << "Add_Error: Hash table or block is full." << endl;
-            return -1;
-        }
-        
-        if(index > ((i_block+1)*this->block_size)-1) {
-            index = i_block*this->block_size;
-        }
+    pthread_mutex_lock(&this->mutexes[i_block]);
+    sleep(0.5);
+    if(this->full_blocks[i_block]==1) {
+        cout << "Add_Error: Block is full." << endl;
+        pthread_mutex_unlock(&this->mutexes[i_block]);
+        return -1;
     }
     
-    this->table[index].SetKey(key);
-    this->table[index].SetNumber(number);
+    int count = 0;
+    while(!this->table[index].IsEmpty())
+        {
+            index++;
+            count++;
+            
+            if(count == this->table_size/this->block_size) {
+                cout <<"Add_Error: Hash table or block is full." << endl;
+                this->full_blocks[i_block] = 1;
+                pthread_mutex_unlock(&this->mutexes[i_block]);
+                return -1;
+            }
+
+            if(index > ((i_block+1)*this->block_size)-1) {
+                index = i_block*this->block_size;
+            }
+        }
     
+    
+        this->table[index].SetKey(key);
+        this->table[index].SetNumber(number);
+    pthread_mutex_unlock(&this->mutexes[i_block]);
+
     return 1;
 }
 

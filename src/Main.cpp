@@ -14,26 +14,25 @@
 
 using namespace std;
 
-pthread_mutex_t mymutex;
-
-int j = 0;
-
 struct thread_data{
     int id;
     int  n_op;
-    pthread_mutex_t  *mutex;
     HashTable *ht;
 };
 
 void *n_operations(void *threadarg)
 {
-    struct thread_data *my_data;
-    my_data = (struct thread_data *) threadarg;
+    struct thread_data *t_data;
+    t_data = (struct thread_data *) threadarg;
+
+    //cout << t_data->id << endl;
+    t_data->ht->Add("Ivan", t_data->id);
+    t_data->ht->Add("Maria", t_data->id);
+    t_data->ht->Add("Carlos", t_data->id);
+    t_data->ht->Add("Joselito", t_data->id);
+    t_data->ht->Add("José", t_data->id);
+    t_data->ht->Add("Joseph", t_data->id);
     
-    pthread_mutex_lock(&my_data->mutex[3]);
-        cout << my_data->id << " " << my_data->n_op << " op: " << j << endl;
-        j++;
-    pthread_mutex_unlock(&my_data->mutex[3]);
 }
 
 
@@ -44,8 +43,9 @@ int main(int argc, char** argv) {
     int n_block = atoi(argv[3]);
     int n_op = atoi(argv[4]);
     
-    HashTable hash_t(8, 4);
+    HashTable hash_t(s_table, n_block);
     
+    /*
     hash_t.Add("Ivan", 123456);
     hash_t.Add("navI", 654321);
     hash_t.Add("Douglas", 100);
@@ -58,26 +58,30 @@ int main(int argc, char** argv) {
     hash_t.Delete("navI");
     
     hash_t.Set("Mario", 123);
+    */
+    /*
+    td.ht = &hash_t;
+    td.id = 10;
+    td.n_op = 20;
+    
+    pthread_create(&threads[0], NULL, &n_operations, (void *) &td);
+    pthread_create(&threads[1], NULL, &n_operations, (void *) &td);
+    
+    pthread_join(threads[0], NULL);
+    pthread_join(threads[1], NULL);
     
     hash_t.PrintAll();
+    */
     
-    /*
-    pthread_mutex_t mutex_block[n_block];
     pthread_t threads[n_thread];
     struct thread_data td[n_thread];
     
     int op_per_thread = n_op/n_thread;
     int rest = n_op%n_thread;
-
-    for(int i=0; i < n_block; i++)
-    {
-        pthread_mutex_init(&mutex_block[i], NULL);
-    }
     
     for(int i=0; i < n_thread; i++)
     {
         td[i].id = i;
-        td[i].mutex = mutex_block;
         td[i].ht = &hash_t;
         if(i == n_thread-1)
         {
@@ -92,11 +96,17 @@ int main(int argc, char** argv) {
         pthread_create(&threads[i], NULL, &n_operations,(void *) &td[i]);
     }
     
+    
     for(int i=0; i < n_thread; i++)
     {
         pthread_join(threads[i], NULL);
     }
-    */
+
+    hash_t.PrintAll();
+    
+    pthread_exit(NULL);
+
+    
     return 0;
 }
 

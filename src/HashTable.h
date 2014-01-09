@@ -15,7 +15,8 @@ class HashTable {
         int table_size;
         int block_size;
         Entry* table;
-        pthread_mutex_t  *mutexes;
+        pthread_mutex_t *mutexes;
+        int full_blocks[];
         
     public:
         
