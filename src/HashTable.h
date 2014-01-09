@@ -29,6 +29,7 @@ class HashTable {
         int Print(string key);
         int PrintAll();
         int GetIndexBlock(int index);
+        int GetSize();
     
 };
 

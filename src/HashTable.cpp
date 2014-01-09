@@ -43,7 +43,7 @@ int HashTable::HashFunction(string key)
 
 int HashTable::GetIndexBlock(int index)
 {
-    return index/this->block_size;
+    return index/(this->table_size/this->block_size);
 }
 
 int HashTable::Add(string key, int number)
@@ -51,9 +51,10 @@ int HashTable::Add(string key, int number)
     int index = this->HashFunction(key);
     int last_index = index;
     int i_block = this->GetIndexBlock(index);
-    
+    cout << "entrou add " << i_block << endl;
     pthread_mutex_lock(&this->mutexes[i_block]);
-    sleep(0.5);
+    cout << "entrou lock" << endl;
+    //sleep(0.5);
     if(this->full_blocks[i_block]==1) {
         cout << "Add_Error: Block is full." << endl;
         pthread_mutex_unlock(&this->mutexes[i_block]);
@@ -176,4 +177,8 @@ int HashTable::PrintAll()
             cout << this->table[i].GetKey() << ": " << this->table[i].GetNumber() << endl;
         } 
     }
+}
+
+int HashTable::GetSize(){
+    return this->table_size;
 }
