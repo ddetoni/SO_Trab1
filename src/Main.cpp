@@ -25,7 +25,6 @@ void *n_operations(void *threadarg)
     struct thread_data *t_data;
     t_data = (struct thread_data *) threadarg;
     
-    cout << "entrou n_op" << endl;
     t_data->ht->Add("Ivan", t_data->id);
     t_data->ht->Add("Maria", t_data->id);
     t_data->ht->Add("Carlos", t_data->id);
@@ -44,7 +43,6 @@ int main(int argc, char** argv) {
     int n_op = atoi(argv[4]);
     
     HashTable hash_t(s_table, n_block);
-    cout << hash_t.GetSize() << endl;
     /*
     hash_t.Add("Ivan", 123456);
     hash_t.Add("navI", 654321);
@@ -90,20 +88,17 @@ int main(int argc, char** argv) {
             td[i].n_op = op_per_thread;
         }
     }
-    cout << "aqui 1" << endl;
+    
     for(int i=0; i < n_thread; i++)
     {
         pthread_create(&threads[i], NULL, &n_operations,(void *) &td[i]);
     }
-    cout << "aqui 2" << endl;
     
     
     for(int i=0; i < n_thread; i++)
     {
-        cout << "entrou join" << endl;
         pthread_join(threads[i], NULL);
     }
-    cout << "aqui 3" << endl;
     
     hash_t.PrintAll();
     

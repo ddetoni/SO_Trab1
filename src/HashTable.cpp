@@ -15,7 +15,7 @@ HashTable::HashTable(int tb_size, int block_size)
     this->table_size = tb_size;
     this->block_size = block_size;
     
-    this->mutexes[block_size];
+    this->mutexes = new pthread_mutex_t[block_size] {};
     
     for(int i=0; i < block_size; i++)
     {
@@ -23,7 +23,7 @@ HashTable::HashTable(int tb_size, int block_size)
         assert(rc == 0);
     }
     
-    this->full_blocks[block_size];
+    this->full_blocks = new int[block_size] {};
 }
 
 int HashTable::HashFunction(string key)
@@ -47,14 +47,13 @@ int HashTable::GetIndexBlock(int index)
 }
 
 int HashTable::Add(string key, int number)
-{
+{   
     int index = this->HashFunction(key);
     int last_index = index;
     int i_block = this->GetIndexBlock(index);
-    cout << "entrou add " << i_block << endl;
+    
     pthread_mutex_lock(&this->mutexes[i_block]);
-    cout << "entrou lock" << endl;
-    //sleep(0.5);
+
     if(this->full_blocks[i_block]==1) {
         cout << "Add_Error: Block is full." << endl;
         pthread_mutex_unlock(&this->mutexes[i_block]);
