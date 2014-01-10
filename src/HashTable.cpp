@@ -82,7 +82,7 @@ int HashTable::Add(string key, int number)
         this->table[index].SetKey(key);
         this->table[index].SetNumber(number);
     pthread_mutex_unlock(&this->mutexes[i_block]);
-
+    cout <<"Add: Success." << endl;
     return 1;
 }
 
@@ -92,12 +92,17 @@ int HashTable::Get(string key)
     int last_index = index;
     int i_block = this->GetIndexBlock(index);
     
+    pthread_mutex_lock(&this->mutexes[i_block]);
+    
+    int count = 0;
     while(this->table[index].GetKey() != key)
     {
         index++;
+        count++;
         
-        if(index == last_index) {
+        if(count == this->table_size/this->block_size) {
             cout << "Get_Error: The key doesn't exist." << endl;
+            pthread_mutex_unlock(&this->mutexes[i_block]);
             return -1;
         }
         
@@ -107,6 +112,8 @@ int HashTable::Get(string key)
     }
     
     int number = this->table[index].GetNumber();
+    pthread_mutex_unlock(&this->mutexes[i_block]);
+    cout <<"Get: Success." << endl;
     return number;
 }
 
@@ -116,12 +123,18 @@ int HashTable::Set(string key, int number)
     int last_index = index;
     int i_block = this->GetIndexBlock(index);
     
+    pthread_mutex_lock(&this->mutexes[i_block]);
+    
+    int count = 0;
+    
     while(this->table[index].GetKey() != key && !this->table[index].IsEmpty())
     {
         index++;
+        count++;
         
-        if(index == last_index) {
+        if(count == this->table_size/this->block_size) {
             cout << "Set_Error: The key doesn't exist." << endl;
+            pthread_mutex_unlock(&this->mutexes[i_block]);
             return -1;
         }
         
@@ -132,7 +145,8 @@ int HashTable::Set(string key, int number)
     
     this->table[index].SetKey(key);
     this->table[index].SetNumber(number);
-    
+    pthread_mutex_unlock(&this->mutexes[i_block]);
+    cout <<"Set: Success." << endl;
     return 1;
 }
 
@@ -142,12 +156,17 @@ int HashTable::Delete(string key)
     int last_index = index;
     int i_block = this->GetIndexBlock(index);
     
+    pthread_mutex_lock(&this->mutexes[i_block]);
+    
+    int count = 0;
     while(this->table[index].GetKey() != key)
     {
         index++;
+        count++;
         
-        if(index == last_index) {
+        if(count == this->table_size/this->block_size) {
             cout << "Delete_Error: The key doesn't exist." << endl;
+            pthread_mutex_unlock(&this->mutexes[i_block]);
             return -1;
         }
         
@@ -158,26 +177,39 @@ int HashTable::Delete(string key)
     
     this->table[index].SetKey("");
     this->table[index].SetNumber(0);
-            
+    pthread_mutex_unlock(&this->mutexes[i_block]);
+    cout <<"Delete: Success." << endl;
 }
 
 int HashTable::Print(string key)
 {
     int number = this->Get(key);
     
-    cout << number << endl;
+    if(number != -1)
+        cout << "Print: " << number << endl;
 }
 
 int HashTable::PrintAll()
 {   
+    cout << "\n---Printing Hash Table---" << endl;
     for(int i=0; i < this->table_size; i++)
     {
         if(!this->table[i].IsEmpty()){
             cout << this->table[i].GetKey() << ": " << this->table[i].GetNumber() << endl;
-        } 
+        }
     }
 }
 
-int HashTable::GetSize(){
+int HashTable::GetSize()
+{
     return this->table_size;
+}
+
+HashTable::~HashTable() 
+{
+    
+    delete [] this->table;
+    delete [] this->mutexes;
+    delete [] this->full_blocks;
+    
 }

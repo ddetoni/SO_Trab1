@@ -1,14 +1,8 @@
-/* 
- * File:   main.cpp
- * Author: douglas
- *
- * Created on 27 de Novembro de 2013, 21:20
- */
-
 #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <pthread.h>
+#include <time.h>
 
 #include "HashTable.h"
 
@@ -20,17 +14,44 @@ struct thread_data{
     HashTable *ht;
 };
 
+string keys [50] = {"Ivan1", "Ivan2", "Ivan3", "Ivan4", "Ivan5", "Ivan6", "Ivan7", "Ivan8", "Ivan9", "Ivan10",  
+                  "Douglas1", "Douglas2", "Douglas3", "Douglas4", "Douglas5", "Douglas6", "Douglas7", "Douglas8", "Douglas9", "Douglas10", 
+                  "Joana1", "Joana2", "Joana3", "Joana4", "Joana5", "Joana6", "Joana7", "Joana8", "Joana9", "Joana10", 
+                  "Mario1", "Mario2", "Mario3", "Mario4", "Mario5", "Mario6", "Mario7", "Mario8", "Mario9", "Mario10", 
+                  "Mauricio1", "Mauricio2", "Mauricio3", "Mauricio4", "Mauricio5", "Mauricio6", "Mauricio7", "Mauricio8", "Mauricio9", "Mauricio10"};
+
+
 void *n_operations(void *threadarg)
 {
     struct thread_data *t_data;
     t_data = (struct thread_data *) threadarg;
     
-    t_data->ht->Add("Ivan", t_data->id);
-    t_data->ht->Add("Maria", t_data->id);
-    t_data->ht->Add("Carlos", t_data->id);
-    t_data->ht->Add("Joselito", t_data->id);
-    t_data->ht->Add("José", t_data->id);
-    t_data->ht->Add("Simão", t_data->id);
+    srand (time(NULL));
+    
+    for(int i=0; i < t_data->n_op; i++)
+    {
+        int op = rand() % 6;
+        int k = rand() % 50;
+        int value = rand() % 1000000;
+        
+        switch (op)
+        {
+            case 1: t_data->ht->Add(keys[k], value);
+                break;
+                
+            case 2: t_data->ht->Get(keys[k]);
+                break;
+
+            case 3: t_data->ht->Set(keys[k], value);
+                break;
+                
+            case 4: t_data->ht->Delete(keys[k]);
+                break;
+                
+            case 5: t_data->ht->Print(keys[k]);
+                break;
+        }
+    }
     
 }
 
@@ -43,33 +64,6 @@ int main(int argc, char** argv) {
     int n_op = atoi(argv[4]);
     
     HashTable hash_t(s_table, n_block);
-    /*
-    hash_t.Add("Ivan", 123456);
-    hash_t.Add("navI", 654321);
-    hash_t.Add("Douglas", 100);
-    hash_t.Add("Mario", 1200000000);
-    hash_t.Add("Jacos", 12);
-    hash_t.Add("Jairo", 10);
-    hash_t.Add("Maria", 20);
-    hash_t.Add("Lucas", 102);
-    
-    hash_t.Delete("navI");
-    
-    hash_t.Set("Mario", 123);
-    */
-    /*
-    td.ht = &hash_t;
-    td.id = 10;
-    td.n_op = 20;
-    
-    pthread_create(&threads[0], NULL, &n_operations, (void *) &td);
-    pthread_create(&threads[1], NULL, &n_operations, (void *) &td);
-    
-    pthread_join(threads[0], NULL);
-    pthread_join(threads[1], NULL);
-    
-    hash_t.PrintAll();
-    */
     
     pthread_t threads[n_thread];
     struct thread_data td[n_thread];
@@ -103,8 +97,7 @@ int main(int argc, char** argv) {
     hash_t.PrintAll();
     
     pthread_exit(NULL);
-
-    
+  
     return 0;
 }
 
